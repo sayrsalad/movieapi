@@ -35,4 +35,8 @@ Route::group([
 Route::group(['middleware'=>'auth:api'], function() {
     Route::resource('movie', 'MovieController');
     Route::resource('actor', 'ActorController');
+    Route::resource('producer', 'ProducerController');
+    Route::resource('genre', 'GenreController');
+    Route::resource('certificate', 'CertificateController');
+    Route::resource('role', 'RoleController');
 });
