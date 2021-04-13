@@ -1,7 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use App\Actor;
+use App\Models\Actor;
 use Faker\Factory as faker;
 
 class ActorTableSeeder extends Seeder
@@ -11,10 +13,6 @@ class ActorTableSeeder extends Seeder
      *
      * @return void
      */
-
-    public function __construct(){
-    	$this->middleware('auth');
-    }
 
     public function run()
     {

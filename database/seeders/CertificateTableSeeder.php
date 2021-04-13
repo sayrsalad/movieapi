@@ -1,7 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use App\Certificate;
+use App\Models\Certificate;
 use Faker\Factory as faker;
 
 class CertificateTableSeeder extends Seeder

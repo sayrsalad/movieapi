@@ -1,7 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use App\Role;
+use App\Models\Role;
 use Faker\Factory as faker;
 
 class RoleTableSeeder extends Seeder

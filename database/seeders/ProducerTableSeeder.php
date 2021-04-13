@@ -1,7 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use App\Producer;
+use App\Models\Producer;
 use Faker\Factory as faker;
 
 class ProducerTableSeeder extends Seeder

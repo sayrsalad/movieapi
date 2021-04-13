@@ -31,3 +31,8 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);    
 });
+
+Route::group(['middleware'=>'auth:api'], function() {
+    Route::resource('movie', 'MovieController');
+    Route::resource('actor', 'ActorController');
+});

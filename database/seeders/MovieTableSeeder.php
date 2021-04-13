@@ -1,7 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use App\Movie;
+use App\Models\Movie;
 use Faker\Factory as faker;
 
 class MovieTableSeeder extends Seeder

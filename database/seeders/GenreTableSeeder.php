@@ -1,8 +1,11 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
-use App\Genre;
+use App\Models\Genre;
 use Faker\Factory as faker;
+
 
 class GenreTableSeeder extends Seeder
 {
