@@ -21,7 +21,8 @@ class ProducerController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $producer = Producer::create($request->all());
+        return Response::json($producer, 200);
     }
 
     public function show($id)
@@ -32,16 +33,22 @@ class ProducerController extends Controller
 
     public function edit($id)
     {
-        //
+        $producer = Producer::find($id);
+        return Response::json($producer, 200);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $producer = Producer::find($id);
+        $producer = $producer->update($request->all());
+        return Response::json($producer, 200);
     }
 
     public function destroy($id)
     {
-        //
+		$producer = Producer::findOrFail($id);
+        $producer->delete();
+        $data = array('status' => 'Deleted');
+        return Response::json($data, 200);
     }
 }

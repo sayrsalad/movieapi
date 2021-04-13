@@ -21,7 +21,8 @@ class ActorController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $actor = Actor::create($request->all());
+        return Response::json($actor, 200);
     }
 
     public function show($id)
@@ -32,16 +33,22 @@ class ActorController extends Controller
 
     public function edit($id)
     {
-        //
+        $actor = Actor::find($id);
+        return Response::json($actor, 200);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $actor = Actor::find($id);
+        $actor = $actor->update($request->all());
+        return Response::json($actor, 200);
     }
 
     public function destroy($id)
     {
-        //
+		$actor = Actor::findOrFail($id);
+        $actor->delete();
+        $data = array('status' => 'Deleted');
+        return Response::json($data, 200);
     }
 }

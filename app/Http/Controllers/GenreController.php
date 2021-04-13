@@ -16,11 +16,13 @@ class GenreController extends Controller
 
     public function create()
     {
+
     }
 
     public function store(Request $request)
     {
-        //
+        $genre = Genre::create($request->all());
+        return Response::json($genre, 200);
     }
 
     public function show($id)
@@ -31,16 +33,22 @@ class GenreController extends Controller
 
     public function edit($id)
     {
-        //
+        $genre = Genre::find($id);
+        return Response::json($genre, 200);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $genre = Genre::find($id);
+        $genre = $genre->update($request->all());
+        return Response::json($genre, 200);
     }
 
     public function destroy($id)
     {
-        //
+		$genre = Genre::findOrFail($id);
+        $genre->delete();
+        $data = array('status' => 'Deleted');
+        return Response::json($data, 200);
     }
 }

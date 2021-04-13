@@ -10,8 +10,8 @@ class RoleController extends Controller
 {
     public function index()
     {
-        $role = Role::orderBy('role_ID', 'DESC')->get();
-        return Response::json($role, 200);
+        $roles = Role::orderBy('role_ID', 'DESC')->get();
+        return Response::json($roles, 200);
     }
 
     public function create()
@@ -21,27 +21,34 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $role = Role::create($request->all());
+        return Response::json($role, 200);
     }
 
     public function show($id)
     {
-        $roles = Role::find($id);
-        return Response::json($roles, 200);
+        $role = Role::find($id);
+        return Response::json($role, 200);
     }
 
     public function edit($id)
     {
-        //
+        $role = Role::find($id);
+        return Response::json($role, 200);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $role = Role::find($id);
+        $role = $role->update($request->all());
+        return Response::json($role, 200);
     }
 
     public function destroy($id)
     {
-        //
+		$role = Role::findOrFail($id);
+        $role->delete();
+        $data = array('status' => 'Deleted');
+        return Response::json($data, 200);
     }
 }

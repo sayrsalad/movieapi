@@ -44,22 +44,22 @@ class MovieController extends Controller
     public function edit($id)
     {
         $movie = Movie::find($id);
-		return response()->json($movie);
+		return Response::json($movie, 200);
     }
 
     public function update(Request $request, $id)
     {
         $movie = Movie::find($id);
         $movie = $movie->update($request->all());
-        return response()->json($movie);
+        return Response::json($movie, 200);
     }
 
     public function destroy($id)
     {
 		$movie = Movie::findOrFail($id);
         $movie->delete();
-        return response()->json(["success" => "Movie Deleted Successfully.",
-             "data" => $movie,"status" => 200]);
+        $data = array('status' => 'Deleted');
+        return Response::json($data, 200);
     }
 
 	public function restore($id)
