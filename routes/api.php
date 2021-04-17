@@ -33,7 +33,7 @@ Route::group([
 });
 
 Route::group(['middleware'=>'auth:api'], function() {
-    Route::get('/save-user-info', [AuthController::class, 'saveUserInfo']); 
+    Route::post('save_user_info', [AuthController::class, 'saveUserInfo']); 
     Route::resource('movie', 'MovieController');
     Route::resource('actor', 'ActorController');
     Route::resource('producer', 'ProducerController');
