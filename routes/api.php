@@ -29,10 +29,11 @@ Route::group([
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::get('/user-profile', [AuthController::class, 'userProfile']);    
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);       
 });
 
 Route::group(['middleware'=>'auth:api'], function() {
+    Route::get('/save-user-info', [AuthController::class, 'saveUserInfo']); 
     Route::resource('movie', 'MovieController');
     Route::resource('actor', 'ActorController');
     Route::resource('producer', 'ProducerController');

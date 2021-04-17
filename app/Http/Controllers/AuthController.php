@@ -54,7 +54,7 @@ class AuthController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
+            return response()->json($validator->errors()->toJson());
         }
 
         $user = User::create(array_merge(
@@ -63,6 +63,7 @@ class AuthController extends Controller
                 ));
 
         return response()->json([
+            'success' => true,
             'message' => 'User successfully registered',
             'user' => $user
         ], 201);
@@ -107,10 +108,30 @@ class AuthController extends Controller
      */
     protected function createNewToken($token){
         return response()->json([
-            'access_token' => $token,
+            'success' => true,
+            'access_token' => $token
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => auth()->user()
+        ]);
+    }
+
+    public function saveUserInfo(Request $request) {
+        $user = User::find(Auth::user()->id);
+        $user->name = $request->name;
+        $photo = '';
+
+        if ($request->photo!='') {
+          $photo = time().'.jpg';
+          file_put_contents('storage/profiles/'.$photo, base64_decode($request->photo));
+          $user->photo = $photo;
+        }
+
+        $user->update();
+
+        return response()->json([
+            'success' => true,
+            'photo' => $photo
         ]);
     }
 
