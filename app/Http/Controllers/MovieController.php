@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use App\Models\Movie;
-use App\Models\Genre;
-use App\Models\Certificate;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -16,10 +14,14 @@ class MovieController extends Controller
     public function index()
     {
         $movies = Movie::orderBy('movie_ID', 'DESC')->get();
-        $genres = Genre::orderBy('genre_ID', 'DESC')->get();
-        $certificates = Certificate::orderBy('certificate_ID', 'DESC')->get();
-        $result = array('movies' => $movies, 'genres' => $genres, 'certificates' => $certificates);
-        return response()->json($result);
+        foreach($movies as $movie){
+            $movie->genre;
+            $movie->certificate;
+        }
+        return response()->json([
+            'success' => true,
+            'movies' => $movies
+        ]);
     }
 
     public function create()
@@ -32,6 +34,14 @@ class MovieController extends Controller
     public function store(Request $request)
     {
         $movie = Movie::create($request->all());
+
+        if($request->movie_poster != ''){
+         
+            $movie_poster = time().'.jpg';
+            file_put_contents('storage/posts/'.$movie_poster,base64_decode($request->movie_poster));
+            $movie->movie_poster = $movie_poster;
+        }
+
         return Response::json($movie, 200);
     }
 
