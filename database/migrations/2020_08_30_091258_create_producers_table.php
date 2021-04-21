@@ -17,7 +17,7 @@ class CreateProducersTable extends Migration
             $table->increments('producer_ID')->unsigned();
             $table->string('producer_name', 64);
             $table->string('producer_email_address', 64);
-            $table->string('producer_webiste', 64);
+            $table->string('producer_website', 64);
             $table->enum('producer_status', array('active','inactive'));
             $table->timestamps();
             $table->softDeletes();

@@ -17,6 +17,7 @@ class MovieController extends Controller
         foreach($movies as $movie){
             $movie->genre;
             $movie->certificate;
+            $movie->actor;
         }
         return response()->json([
             'success' => true,
@@ -48,6 +49,9 @@ class MovieController extends Controller
     public function show($id)
     {
         $movie = Movie::find($id);
+        foreach ($movie->actor as $actor) {
+            
+        }
         return Response::json($movie, 200);
     }
 
@@ -77,4 +81,13 @@ class MovieController extends Controller
 		Movie::withTrashed()->where('movie_ID',$id)->restore();
 		return Redirect::route('movie.index')->with('success','Movie Restored Successfully!');
 	}
+
+    public function casts($id)
+    {
+        $movie = Movie::find($id);
+        foreach ($movie->actor as $actor) {
+            
+        }
+        return Response::json($movie, 200);
+    }
 }

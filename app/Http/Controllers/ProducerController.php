@@ -11,7 +11,10 @@ class ProducerController extends Controller
     public function index()
     {
         $producers = Producer::orderBy('producer_ID', 'DESC')->get();
-        return Response::json($producers, 200);
+        return response()->json([
+            'success' => true,
+            'producers' => $producers
+        ]);
     }
 
     public function create()

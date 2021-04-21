@@ -34,10 +34,17 @@ Route::group([
 
 Route::group(['middleware'=>'auth:api'], function() {
     Route::post('save_user_info', [AuthController::class, 'saveUserInfo']); 
+
     Route::resource('movie', 'MovieController');
+    Route::get('/movie/{id}/casts',['uses' => 'MovieController@casts','as' => 'actor.getcasts'] );
+
     Route::resource('actor', 'ActorController');
+
     Route::resource('producer', 'ProducerController');
+    
     Route::resource('genre', 'GenreController');
+    
     Route::resource('certificate', 'CertificateController');
+    
     Route::resource('role', 'RoleController');
 });

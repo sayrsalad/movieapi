@@ -11,7 +11,13 @@ class ActorController extends Controller
     public function index()
     {
         $actors = Actor::orderBy('actor_ID', 'DESC')->get();
-        return Response::json($actors, 200);
+        foreach($actors as $actor){
+            $actor->movie;
+        }
+        return response()->json([
+            'success' => true,
+            'actors' => $actors
+        ]);
     }
 
     public function create()

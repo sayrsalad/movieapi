@@ -11,12 +11,12 @@ class Actor extends Model
     use HasFactory;
     public $primaryKey = 'actor_ID';
 
-    public function movies()
+    public function movie()
     {
         return $this->belongsToMany(Movie::class, 'movie_actor_role', 'actor_ID', 'movie_ID');
     }
 
-    public function roles()
+    public function role()
     {
         return $this->belongsToMany(Role::class, 'movie_actor_role');
     }
