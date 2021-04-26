@@ -36,11 +36,13 @@ Route::group(['middleware'=>'auth:api'], function() {
     Route::post('save_user_info', [AuthController::class, 'saveUserInfo']); 
 
     Route::resource('movie', 'MovieController');
-    Route::get('/movie/{id}/casts',['uses' => 'MovieController@casts','as' => 'actor.getcasts'] );
+    Route::get('/movie/restore/{id}',['uses' => 'MovieController@restore', 'as' => 'movie.restore']);
 
     Route::resource('actor', 'ActorController');
+    Route::get('/actor/restore/{id}',['uses' => 'ActorController@restore', 'as' => 'actor.restore']);
 
     Route::resource('producer', 'ProducerController');
+    Route::get('/producer/restore/{id}',['uses' => 'ProducerController@restore', 'as' => 'producer.restore']);
     
     Route::resource('genre', 'GenreController');
     

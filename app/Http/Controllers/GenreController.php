@@ -10,7 +10,7 @@ class GenreController extends Controller
 {
     public function index()
     {
-        $genres = Genre::orderBy('genre_ID', 'ASC')->get();
+        $genres = Genre::orderBy('genre_ID', 'DESC')->get();
         return response()->json([
             'success' => true,
             'genres' => $genres

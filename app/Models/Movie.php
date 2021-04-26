@@ -13,12 +13,12 @@ class Movie extends Model
 
     public function genre()
     {
-    	return $this->hasOne(Genre::class, 'genre_ID');
+    	return $this->belongsTo(Genre::class, 'genre_ID');
     }
 
     public function certificate()
     {
-    	return $this->hasOne(Certificate::class, 'certificate_ID');
+    	return $this->belongsTo(Certificate::class, 'certificate_ID');
     }
 
     public function producers()

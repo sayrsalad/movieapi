@@ -27,23 +27,39 @@ class MovieController extends Controller
 
     public function create()
     {
-        // $genres = Genre::pluck('genre_name', 'genre_ID');
-        // $certificates = Certificate::pluck('certificate_name', 'certificate_ID');
-        // return View::make('movie.create', compact('genres', 'certificates'));
+
     }
 
     public function store(Request $request)
     {
-        $movie = Movie::create($request->all());
+        $movie = new Movie;
+        $movie->movie_title = $request->movie_title;
+        $movie->movie_story = $request->movie_story;
+        $movie->movie_release_date = $request->movie_release_date;
+        $movie->movie_film_duration = $request->movie_film_duration;
+        $movie->movie_additional_info = $request->movie_additional_info;
+        $movie->genre_ID = $request->genre_ID;
+        $movie->certificate_ID = $request->certificate_ID;
+        $movie->movie_status = $request->movie_status;
 
         if($request->movie_poster != ''){
          
-            $movie_poster = time().'.jpg';
-            file_put_contents('storage/posts/'.$movie_poster,base64_decode($request->movie_poster));
+            $movie_poster = $this->setImgName($movie->movie_title)."_".time().'.jpg';
+            file_put_contents('storage/posters/'.$movie_poster,base64_decode($request->movie_poster));
             $movie->movie_poster = $movie_poster;
         }
 
-        return Response::json($movie, 200);
+        $movie->save();
+
+        $movie->genre;
+        $movie->certificate;
+        $movie->actor;
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Movie Added',
+            'movie' => $movie
+        ]);
     }
 
     public function show($id)
@@ -57,29 +73,56 @@ class MovieController extends Controller
 
     public function edit($id)
     {
-        $movie = Movie::find($id);
-		return Response::json($movie, 200);
+
     }
 
     public function update(Request $request, $id)
     {
         $movie = Movie::find($id);
-        $movie = $movie->update($request->all());
-        return Response::json($movie, 200);
+        $movie->movie_title = $request->movie_title;
+        $movie->movie_story = $request->movie_story;
+        $movie->movie_release_date = $request->movie_release_date;
+        $movie->movie_film_duration = $request->movie_film_duration;
+        $movie->movie_additional_info = $request->movie_additional_info;
+        $movie->genre_ID = $request->genre_ID;
+        $movie->certificate_ID = $request->certificate_ID;
+        $movie->movie_status = $request->movie_status;
+
+        if($request->movie_poster != ''){
+         
+            $movie_poster = $this->setImgName($movie->movie_title)."_".time().'.jpg';
+            file_put_contents('storage/posters/'.$movie_poster,base64_decode($request->movie_poster));
+            $movie->movie_poster = $movie_poster;
+        }
+
+        $movie->update();
+
+        $movie->genre;
+        $movie->certificate;
+        $movie->actor;
+
+        return response()->json([
+            'success' => true,
+            'movie' => $movie,
+            'message' => 'Movie Edited'
+        ]);
     }
 
     public function destroy($id)
     {
-		$movie = Movie::findOrFail($id);
+        $movie = Movie::findOrFail($id);
         $movie->delete();
-        $data = array('status' => 'Deleted');
-        return Response::json($data, 200);
+        return response()->json([
+            'success' => true,
+            'message' => 'Actor Deleted'
+        ]);
     }
 
 	public function restore($id)
 	{
-		Movie::withTrashed()->where('movie_ID',$id)->restore();
-		return Redirect::route('movie.index')->with('success','Movie Restored Successfully!');
+        Movie::withTrashed()->where('movie_ID',$id)->restore();
+        $data = array('status' => 'Restored');
+        return Response::json($data, 200);
 	}
 
     public function casts($id)
@@ -89,5 +132,9 @@ class MovieController extends Controller
             
         }
         return Response::json($movie, 200);
+    }
+
+    public function setImgName($name) {
+        return strtolower(preg_replace("/[^a-zA-Z0-9]+/", "", $name));
     }
 }

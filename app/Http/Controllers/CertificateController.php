@@ -11,7 +11,10 @@ class CertificateController extends Controller
     public function index()
     {
         $certificates = Certificate::orderBy('certificate_ID', 'DESC')->get();
-        return Response::json($certificates, 200);
+        return response()->json([
+            'success' => true,
+            'certificates' => $certificates
+        ]);
     }
 
     public function create()
