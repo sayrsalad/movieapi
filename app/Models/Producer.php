@@ -11,7 +11,7 @@ class Producer extends Model
     use HasFactory;
     public $primaryKey = 'producer_ID';
 
-    public function movies()
+    public function movie()
     {
         return $this->belongsToMany(Movie::class, 'movie_producer', 'producer_ID', 'movie_ID');
     }

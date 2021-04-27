@@ -11,7 +11,10 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::orderBy('role_ID', 'DESC')->get();
-        return Response::json($roles, 200);
+        return response()->json([
+            'success' => true,
+            'roles' => $roles
+        ]);
     }
 
     public function create()

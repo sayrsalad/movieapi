@@ -21,7 +21,7 @@ class Movie extends Model
     	return $this->belongsTo(Certificate::class, 'certificate_ID');
     }
 
-    public function producers()
+    public function producer()
     {
         return $this->belongsToMany(Producer::class, 'movie_producer', 'movie_ID', 'producer_ID');
     }

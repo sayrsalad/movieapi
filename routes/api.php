@@ -37,6 +37,7 @@ Route::group(['middleware'=>'auth:api'], function() {
 
     Route::resource('movie', 'MovieController');
     Route::get('/movie/restore/{id}',['uses' => 'MovieController@restore', 'as' => 'movie.restore']);
+    Route::post('/movie/actor_role',['uses' => 'MovieController@addActorRole', 'as' => 'movie.addActorRole']);
 
     Route::resource('actor', 'ActorController');
     Route::get('/actor/restore/{id}',['uses' => 'ActorController@restore', 'as' => 'actor.restore']);
@@ -50,3 +51,6 @@ Route::group(['middleware'=>'auth:api'], function() {
     
     Route::resource('role', 'RoleController');
 });
+
+
+

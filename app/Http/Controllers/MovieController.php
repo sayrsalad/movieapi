@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use App\Models\Movie;
+use App\Models\MovieActorRole;
 use Illuminate\Support\Facades\Redirect;
 
 
@@ -18,6 +19,7 @@ class MovieController extends Controller
             $movie->genre;
             $movie->certificate;
             $movie->actor;
+            $movie->producer;
         }
         return response()->json([
             'success' => true,
@@ -54,6 +56,7 @@ class MovieController extends Controller
         $movie->genre;
         $movie->certificate;
         $movie->actor;
+        $movie->producer;
 
         return response()->json([
             'success' => true,
@@ -100,6 +103,7 @@ class MovieController extends Controller
         $movie->genre;
         $movie->certificate;
         $movie->actor;
+        $movie->producer;
 
         return response()->json([
             'success' => true,
@@ -125,13 +129,21 @@ class MovieController extends Controller
         return Response::json($data, 200);
 	}
 
-    public function casts($id)
+    public function addActorRole(Request $request)
     {
-        $movie = Movie::find($id);
-        foreach ($movie->actor as $actor) {
-            
-        }
-        return Response::json($movie, 200);
+        $movieactorrole = new MovieActorRole;
+
+        $movieactorrole->movie_ID = $request->movie_ID;
+        $movieactorrole->actor_ID = $request->actor_ID;
+        $movieactorrole->role_ID = $request->role_ID;
+        $movieactorrole->character_name = $request->character_name;
+
+        $movieactorrole->save();
+
+        return response()->json([
+            'success' => true,
+            'movieactorrole' => $movieactorrole
+        ]);
     }
 
     public function setImgName($name) {
